@@ -37,6 +37,25 @@ const MetadataRepo = {
           return { error: `Token ${id} doesn't exist`};
         }
       });
+  },
+  
+  getImageById(id) {
+    return cache.get(`Image_${id}`, () => {
+        return erc721Contract
+          .ownerOf(id)
+          .then(() => true)
+          .catch(() => false);
+      }, 0)
+      .then((exists) => {
+        if (exists) {
+          return fetch(`${process.env.SOURCE_BASE_URI}image/${id}.png`, {method: 'GET'})
+            .then(res => {
+              return res;
+            })
+        } else {
+          return { error: `Token ${id} doesn't exist`};
+        }
+      });
   }
 };
 
