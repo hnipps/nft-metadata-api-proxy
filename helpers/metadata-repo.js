@@ -26,7 +26,7 @@ const MetadataRepo = {
       }, 0)
       .then((exists) => {
         if (exists) {
-          return fetch(`${process.env.SOURCE_BASE_URI}${id}`, {method: 'GET'})
+          return fetch(`${process.env.SOURCE_BASE_URI}${id}.json`, {method: 'GET'})
             .then(res => {
               return res.json();
             })
